@@ -1,3 +1,3 @@
 # Sample-API-project
 
-#*Install Requiremnets*
+#*Install Requirements*
