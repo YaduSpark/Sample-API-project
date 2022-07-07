@@ -5,23 +5,23 @@ from .serializers import *
 
 
 class ProductList(generics.ListCreateAPIView):
-    queryset = manufacturer.objects.all()
-    serializer_class = ManufacturerSerializer
+    queryset = product.objects.all()
+    serializer_class = ProductSerializer
 
 
 class ProductDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = manufacturer.objects.all()
-    serializer_class = ManufacturerSerializer
+    queryset = product.objects.all()
+    serializer_class = ProductSerializer
 
 
 class CatagoryList(generics.ListCreateAPIView):
-    queryset = manufacturer.objects.all()
-    serializer_class = ManufacturerSerializer
+    queryset = category.objects.all()
+    serializer_class = CategorySerializer
 
 
 class CatagoryDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = manufacturer.objects.all()
-    serializer_class = ManufacturerSerializer
+    queryset = category.objects.all()
+    serializer_class = CategorySerializer
 
 
 class manufacturerList(generics.ListCreateAPIView):

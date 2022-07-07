@@ -7,6 +7,7 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ['username', 'email', 'password']
 
 class ProfileSerializer(serializers.ModelSerializer):
+    user = serializers.CharField(source = "user.username")
     class Meta:
         model = Profile
-        fields = ['id', 'address', 'joinedDate']
+        fields = ['id', 'address', 'joinedDate', 'user']
