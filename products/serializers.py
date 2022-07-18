@@ -20,7 +20,7 @@ class ManufacturerSerializer(serializers.ModelSerializer):
 
 class PurchaseSerializer(serializers.ModelSerializer):
 
-    username = serializers.ReadOnlyField(source = 'Profile.user')
+    username = serializers.ReadOnlyField(source = 'Profile.user.username')
 
     user = serializers.SlugRelatedField(
                     queryset = Profile.objects.all(),
@@ -32,16 +32,16 @@ class PurchaseSerializer(serializers.ModelSerializer):
                     slug_field = 'title'
                     )
 
+    price = serializers.SerializerMethodField()
+
 
     class Meta:
         model = PurchaseRecord
-        fields = ['username', 'user', 'product', 'quantity', 'Bought_on']
+        fields = ['user', 'username', 'product', 'quantity' ,'price', 'Bought_on']
 
-
-    def create(self, validated_data):
-        print(validated_data)
-        return PurchaseRecord.objects.create(**validated_data)
-
+    def get_price(self, obj):
+        return obj.product.price * obj.quantity
+        
 
 class ProductSerializer(serializers.ModelSerializer):
 
