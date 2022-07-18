@@ -12,16 +12,14 @@ class UserSerializer(serializers.ModelSerializer):
 
 class ProfileSerializer(serializers.ModelSerializer):
     user = serializers.ReadOnlyField(source='user.username')
-    user_id = serializers.IntegerField()
+    user_id = serializers.IntegerField(source='user.id')
     fullname = serializers.SerializerMethodField("get_User_fullname")
 
     class Meta:
         model = Profile
-        fields = ['id', 'user','user_id', 'address','fullname', 'joined_date']
+        fields = ['id', 'user_id', 'user', 'address','fullname', 'joined_date']
 
     def create(self, validated_data):
-        print(validated_data)
-        print(type(validated_data['user']))
         user = User.objects.get(id = validated_data['user']['id'])
         validated_data['user'] = user
         return Profile.objects.create(**validated_data)
