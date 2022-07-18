@@ -1,5 +1,8 @@
 from rest_framework import filters
 from rest_framework import generics
+from rest_framework.renderers import TemplateHTMLRenderer
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 
 from .serializers import *
@@ -32,7 +35,7 @@ class CatagoryDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CategorySerializer
 
 
-class manufacturerList(generics.ListCreateAPIView):
+class ManufacturerList(generics.ListCreateAPIView):
     queryset = manufacturer.objects.all()
     serializer_class = ManufacturerSerializer
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
@@ -40,6 +43,15 @@ class manufacturerList(generics.ListCreateAPIView):
     ordering_fields = ['name']
 
 
-class manufacturerDetail(generics.RetrieveUpdateDestroyAPIView):
+class ManufacturerDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = manufacturer.objects.all()
     serializer_class = ManufacturerSerializer
+
+
+class PurchaseList(generics.ListCreateAPIView):
+    queryset = PurchaseRecord.objects.all()
+    serializer_class = PurchaseSerializer
+
+class PurchaseDetails(generics.RetrieveUpdateDestroyAPIView):
+    queryset = PurchaseRecord.objects.all()
+    serializer_class = PurchaseSerializer
