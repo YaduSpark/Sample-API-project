@@ -1,9 +1,8 @@
+from django.db.models.aggregates import Avg
+
 from rest_framework import filters
 from rest_framework import generics
-from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.response import Response
-from rest_framework.views import APIView
-
 
 from .serializers import *
 # Create your views here.
@@ -51,6 +50,15 @@ class ManufacturerDetail(generics.RetrieveUpdateDestroyAPIView):
 class PurchaseList(generics.ListCreateAPIView):
     queryset = PurchaseRecord.objects.all()
     serializer_class = PurchaseSerializer
+
+    def list(self, request):
+        queryset = self.get_queryset()
+        serializer = self.get_serializer(queryset, many=True)
+        avg_quantity = queryset.aggregate(Avg('quantity'))
+        print(avg_quantity)
+        print(serializer.data)
+        return Response(serializer.data)
+
 
 class PurchaseDetails(generics.RetrieveUpdateDestroyAPIView):
     queryset = PurchaseRecord.objects.all()

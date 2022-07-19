@@ -14,6 +14,11 @@ class ProfileList(generics.ListCreateAPIView):
     search_fields = ['user__username']
     ordering_fields = ['user__username']
 
+    def list(self, request):
+        queryset = self.get_queryset()
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
+
 
 class ProfileDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Profile.objects.all()

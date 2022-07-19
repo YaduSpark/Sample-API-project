@@ -20,7 +20,7 @@ class ManufacturerSerializer(serializers.ModelSerializer):
 
 class PurchaseSerializer(serializers.ModelSerializer):
 
-    username = serializers.ReadOnlyField(source = 'Profile.user.username')
+    username = serializers.SerializerMethodField()
 
     user = serializers.SlugRelatedField(
                     queryset = Profile.objects.all(),
@@ -34,13 +34,15 @@ class PurchaseSerializer(serializers.ModelSerializer):
 
     price = serializers.SerializerMethodField()
 
-
     class Meta:
         model = PurchaseRecord
         fields = ['user', 'username', 'product', 'quantity' ,'price', 'Bought_on']
 
     def get_price(self, obj):
         return obj.product.price * obj.quantity
+
+    def get_username(self, obj):
+        return obj.user.user.username
         
 
 class ProductSerializer(serializers.ModelSerializer):
