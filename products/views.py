@@ -56,9 +56,16 @@ class PurchaseList(generics.ListCreateAPIView):
         serializer = self.get_serializer(queryset, many=True)
         avg_quantity = queryset.aggregate(Avg('quantity'))
         print(avg_quantity)
-        print(serializer.data)
+        avg_annotate = queryset.annotate(Avg('quantity'))
+        print(avg_annotate)
         return Response(serializer.data)
 
+    def create(self, request):
+        queryset = self.get_queryset()
+        serializer = self.get_serializer(queryset)
+        if serializer.is_valid:
+            serializer.save()
+        return Response(serializer.data)
 
 class PurchaseDetails(generics.RetrieveUpdateDestroyAPIView):
     queryset = PurchaseRecord.objects.all()
