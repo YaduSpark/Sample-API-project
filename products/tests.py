@@ -7,7 +7,7 @@ from .models import category, manufacturer, product
 # Create your tests here.
 
 
-class TestProducts(TestCase):
+class TestProductsModel(TestCase):
 
     """
     Things to test
