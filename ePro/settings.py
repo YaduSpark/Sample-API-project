@@ -81,12 +81,21 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'ecommerce',
-        'USER': 'ecommerce',
-        'PASSWORD': 'test_1',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
         'HOST': 'localhost',
         'PORT': '5432',
+    },
+    'mongoDB':{
+        'ENGINE': 'djongo',
+        'NAME': 'mongo_test',
+        'HOST': 'mongodb+srv://YaduCholayil:YaduCholayil@cluster0.sxnhypo.mongodb.net/?retryWrites=true&w=majority',
+        'USER': 'YaduCholayil',
+        'PASSWORD': 'YaduCholayil'
     }
 }
+
+DATABASE_ROUTERS = ['products.router.CheckRouter']
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
